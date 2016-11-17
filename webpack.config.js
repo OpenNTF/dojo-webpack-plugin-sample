@@ -37,7 +37,8 @@ module.exports = {
         })
     ],
     resolveLoader: { 
-    	root: path.join(__dirname, "node_modules")
+    	// assumes this project is located in ../../node_modules/dojo-webpack-plugin-sample
+    	root: path.join(__dirname, "../../node_modules")
     },
     devtool: "#source-map",
     node: {
