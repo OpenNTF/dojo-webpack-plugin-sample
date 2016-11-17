@@ -13,22 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+var isNode = typeof process == "object" && process.versions && process.versions.node && process.versions.v8;
+if (isNode) {
+	var path = require("path");
+}
+
 module.exports = {
 	baseUrl: ".",
 	packages: [
 		{
 			name: 'dojo',
-			location: '../dojo',
+			location: isNode ? path.resolve(process.env.dojoRoot, "./dojo") : '../dojo',
 			lib: '.'
 		},
 		{
 			name: 'dijit',
-			location: '../dijit',
+			location: isNode ? path.resolve(process.env.dojoRoot, "./dijit") : '../dijit',
 			lib: '.'
 		},
 		{
 			name: 'dojox',
-			location: '../dojox',
+			location: isNode ? path.resolve(process.env.dojoRoot, "./dojox") : '../dojox',
 			lib: '.'
 		}
 	],
