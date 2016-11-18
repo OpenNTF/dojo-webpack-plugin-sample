@@ -2,7 +2,7 @@
 
 [Sample application](https://git.swg.usma.ibm.com/pages/IBM-Verse/dojo-webpack-plugin-sample/test.html) demonstrating the use of [dojo-webpack-plugin](https://git.swg.usma.ibm.com/IBM-Verse/dojo-webpack-plugin) with [webpack](https://webpack.github.io/).
 
-To build the app, set the **dojoRoot** environment variable to point to the root directory where you have the dojo source projects installed.  The directory structure should look like this:
+To build the app, you need to provide the location of the root directory where you have the Dojo source projects installed.  The directory structure should look like this:
 
 ```
 <dojoRoot>
@@ -17,7 +17,7 @@ Run the following commands:
 
 ```
 npm install dojo-webpack-plugin-sample
-node_modules/.bin/webpack --config node_modules/dojo-webpack-plugin-sample/webpack.config.js
+node_modules/.bin/webpack --config node_modules/dojo-webpack-plugin-sample/webpack.config.js --dojoRoot <dojoRoot>
 ```
 
 The built files will be located in `node_modules/dojo-webpack-plugin-sample/release`.  You can launch the app by loading `node_modules/dojo-webpack-plugin-sample/test.html` in a browser.

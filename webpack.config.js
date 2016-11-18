@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *	 http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,43 +21,47 @@ var webpack = require("webpack");
 
 module.exports = {
 	context: __dirname,
-    entry: "./entry.js",
-    output: {
-        path: path.join(__dirname, "release"),
-        publicPath: "release/",
-        pathinfo: true,
-        filename: "bundle.js"
-    },
-    module: {
-        loaders: [
-      		{ test: /\.(png)|(gif)$/, loader: "url?limit=100000" }
-        ]
-    },
-    plugins: [
-        new DojoWebpackPlugin({
-        	loaderConfig: loaderConfig,
-        	locales: ["en"]
-        }),
-        // For plugins registered after the DojoAMDPlugin, data.request has been normalized and
-        // resolved to an absMid and loader-config maps and aliases have been applied
+	entry: "./entry.js",
+	output: {
+		path: path.join(__dirname, "release"),
+		publicPath: "release/",
+		pathinfo: true,
+		filename: "bundle.js"
+	},
+	module: {
+		loaders: [
+			{ test: /\.(png)|(gif)$/, loader: "url?limit=100000" }
+		]
+	},
+	plugins: [
+		new DojoWebpackPlugin({
+			loaderConfig: loaderConfig,
+			locales: ["en"]
+		}),
+		// For plugins registered after the DojoAMDPlugin, data.request has been normalized and
+		// resolved to an absMid and loader-config maps and aliases have been applied
 		new webpack.NormalModuleReplacementPlugin(/^dojox\/gfx\/renderer!/, "dojox/gfx/canvas"),
-        new webpack.NormalModuleReplacementPlugin(
-        	/^js\/css!/, function(data) {
-        		data.request = data.request.replace(/^js\/css!/, "!style!css!less!")
-        	}
-        ),
-        new webpack.optimize.UglifyJsPlugin({
-        	output: {comments: false},
-        	compress: {warnings: false}
-        })
-    ],
-    resolveLoader: { 
-    	// assumes this project is located in ../../node_modules/dojo-webpack-plugin-sample
-    	root: path.join(__dirname, "../../node_modules")
-    },
-    devtool: "#source-map",
-    node: {
-    	process: false,
-    	global: false
-    }
+		new webpack.NormalModuleReplacementPlugin(
+			/^js\/css!/, function(data) {
+				data.request = data.request.replace(/^js\/css!/, "!style!css!less!")
+			}
+		),
+		new webpack.optimize.UglifyJsPlugin({
+			output: {comments: false},
+			compress: {warnings: false}
+		})
+	],
+	resolveLoader: { 
+		root: path.join(
+				__dirname, 
+				__dirname === process.cwd() ?  
+					"node_modules" :	// we're building in the project and node_modules is child folder
+					"../../node_modules"// we're building outside the project and this project is a child of node_modules
+		)
+	},
+	devtool: "#source-map",
+	node: {
+		process: false,
+		global: false
+	}
 }

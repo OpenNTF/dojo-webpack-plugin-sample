@@ -16,6 +16,16 @@
 var isNode = typeof process == "object" && process.versions && process.versions.node && process.versions.v8;
 if (isNode) {
 	var path = require("path");
+	var dojoRoot;
+	// find --dojoRoot command line argument
+	process.argv.some(function(arg, i) {
+		if (arg === "--dojoRoot") {
+			return dojoRoot = process.argv[i+1];
+		}
+	});
+	if (!dojoRoot) {
+		throw new Error("Dojo root not specified.  Use the --dojoRoot command line argument to specify the location of the Dojo folders.");
+	}
 }
 
 module.exports = {
@@ -23,17 +33,17 @@ module.exports = {
 	packages: [
 		{
 			name: 'dojo',
-			location: isNode ? path.resolve(process.env.dojoRoot, "./dojo") : '../dojo',
+			location: dojoRoot ? path.resolve(dojoRoot, "./dojo") : '../dojo',
 			lib: '.'
 		},
 		{
 			name: 'dijit',
-			location: isNode ? path.resolve(process.env.dojoRoot, "./dijit") : '../dijit',
+			location: dojoRoot ? path.resolve(dojoRoot, "./dijit") : '../dijit',
 			lib: '.'
 		},
 		{
 			name: 'dojox',
-			location: isNode ? path.resolve(process.env.dojoRoot, "./dojox") : '../dojox',
+			location: dojoRoot ? path.resolve(dojoRoot, "./dojox") : '../dojox',
 			lib: '.'
 		}
 	],
