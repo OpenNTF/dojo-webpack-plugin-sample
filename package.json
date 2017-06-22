@@ -1,6 +1,6 @@
 {
   "name": "dojo-webpack-plugin-sample",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "dependencies": {
     "less-loader": "2.2.3",
     "less": "2.7.1",
