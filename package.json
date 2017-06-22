@@ -8,7 +8,7 @@
     "css-loader": "0.25.0",
     "style-loader": "0.13.1",
     "webpack": "1.15",
-    "dojo-webpack-plugin": "1.0.29"
+    "dojo-webpack-plugin": "1.0.30"
   },
   "license": "Apache-2.0",
   "repository": {
