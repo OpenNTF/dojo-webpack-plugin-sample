@@ -1,6 +1,6 @@
 # dojo-webpack-plugin-sample
 
-[Sample application](https://git.swg.usma.ibm.com/pages/IBM-Verse/dojo-webpack-plugin-sample/test.html) demonstrating the use of [dojo-webpack-plugin](https://git.swg.usma.ibm.com/IBM-Verse/dojo-webpack-plugin) with [webpack](https://webpack.github.io/).
+[Sample application](https://openntf.github.io/dojo-webpack-plugin-sample/test.html) demonstrating the use of [dojo-webpack-plugin](https://github.com/OpenNTF/dojo-webpack-plugin) with [webpack](https://webpack.github.io/).
 
 To build the app, you need to provide the location of the root directory where you have the Dojo source projects installed.  The directory structure should look like this:
 
@@ -21,3 +21,6 @@ node_modules/.bin/webpack --config node_modules/dojo-webpack-plugin-sample/webpa
 ```
 
 The built files will be located in `node_modules/dojo-webpack-plugin-sample/release`.  You can launch the app by loading `node_modules/dojo-webpack-plugin-sample/test.html` in a browser.
+
+## OpenNTF
+This project is an OpenNTF project, and is available under the Apache License V2.0.  All other aspects of the project, including contributions, defect reports, discussions, feature requests and reviews are subject to the OpenNTF Terms of Use - available at http://openntf.org/Internal/home.nsf/dx/Terms_of_Use.
