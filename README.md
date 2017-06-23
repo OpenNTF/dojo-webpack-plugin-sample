@@ -12,7 +12,7 @@ To build the app, you need to provide the location of the root directory where y
   +-- util
 ```
 Note: on Windows, be sure to use upper-case for the drive letter and exact case for directory names in order to avoid the infamous [equal name when case is ignored](https://github.com/webpack/webpack/issues/2362) warnings.
- 
+
 Run the following commands:
 
 ```
@@ -21,6 +21,3 @@ node_modules/.bin/webpack --config node_modules/dojo-webpack-plugin-sample/webpa
 ```
 
 The built files will be located in `node_modules/dojo-webpack-plugin-sample/release`.  You can launch the app by loading `node_modules/dojo-webpack-plugin-sample/test.html` in a browser.
-
-## OpenNTF
-This project is an OpenNTF project, and is available under the Apache License V2.0.  All other aspects of the project, including contributions, defect reports, discussions, feature requests and reviews are subject to the OpenNTF Terms of Use - available at http://openntf.org/Internal/home.nsf/dx/Terms_of_Use.
