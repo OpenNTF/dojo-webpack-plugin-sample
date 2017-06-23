@@ -13,11 +13,11 @@ To build the app, you need to provide the location of the root directory where y
 ```
 Note: on Windows, be sure to use upper-case for the drive letter and exact case for directory names in order to avoid the infamous [equal name when case is ignored](https://github.com/webpack/webpack/issues/2362) warnings.
 
-Run the following commands:
+To build the sample, run the following commands in the project root folder
 
 ```
-npm install dojo-webpack-plugin-sample
-node_modules/.bin/webpack --config node_modules/dojo-webpack-plugin-sample/webpack.config.js --dojoRoot <dojoRoot>
+npm install
+node_modules/.bin/webpack --config webpack.config.js --dojoRoot <dojoRoot>
 ```
 
-The built files will be located in `node_modules/dojo-webpack-plugin-sample/release`.  You can launch the app by loading `node_modules/dojo-webpack-plugin-sample/test.html` in a browser.
+The built files will be located in `./release`.  You can launch the app by loading `./test.html` in a browser.
