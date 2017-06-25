@@ -19,14 +19,18 @@
 <title>Test</title>
 <style type="text/css">
 	body, html { font-family:helvetica,arial,sans-serif; font-size:90%; }
-    .claro table.dijitCalendarContainer { margin: 25px auto; } 
+    .claro table.dijitCalendarContainer { margin: 25px auto; }
     #formatted { text-align: center; }
-</style>
-
-<script type="text/javascript" src="release/bundle.js" charset="utf-8"></script>
-<style type="text/css">
 	.movable { cursor: hand; }
 </style>
+<script type="text/javascript">
+  if (/[?&]nopack=(1|true)/i.test(location.search)) {
+		document.write("<script type=\"text/javascript\" src=\"js/loaderConfig.js\" charset=\"utf-8\"><" + "/script>");
+		document.write("<script type=\"text/javascript\" src=\"//ajax.googleapis.com/ajax/libs/dojo/1.10.2/dojo/dojo.js.uncompressed.js\" charset=\"utf-8\"><" + "/script>");
+	} else {
+	  document.write("<script type=\"text/javascript\" src=\"release/bundle.js\" charset=\"utf-8\"><" + "/script>");
+  }
+</script>
 </head>
 <body class="claro">
 	<div data-dojo-type="dijit.layout.TabContainer" style="width: 100%; height: 400px;">
