@@ -15,6 +15,7 @@
  */
 var isNode = typeof process == "object" && process.versions && process.versions.node && process.versions.v8;
 if (isNode) {
+	// Read dojoRoot from command line args
 	var path = require("path");
 	var dojoRoot;
 	// find --dojoRoot command line argument
@@ -28,22 +29,22 @@ if (isNode) {
 	}
 }
 
-module.exports = {
+dojoConfig = {
 	baseUrl: ".",
 	packages: [
 		{
 			name: 'dojo',
-			location: dojoRoot ? path.resolve(dojoRoot, "./dojo") : '../dojo',
+			location: dojoRoot ? path.resolve(dojoRoot, "./dojo") : 'http://ajax.googleapis.com/ajax/libs/dojo/1.10.2/dojo',
 			lib: '.'
 		},
 		{
 			name: 'dijit',
-			location: dojoRoot ? path.resolve(dojoRoot, "./dijit") : '../dijit',
+			location: dojoRoot ? path.resolve(dojoRoot, "./dijit") : 'http://ajax.googleapis.com/ajax/libs/dojo/1.10.2/dijit',
 			lib: '.'
 		},
 		{
 			name: 'dojox',
-			location: dojoRoot ? path.resolve(dojoRoot, "./dojox") : '../dojox',
+			location: dojoRoot ? path.resolve(dojoRoot, "./dojox") : 'http://ajax.googleapis.com/ajax/libs/dojo/1.10.2/dojox',
 			lib: '.'
 		}
 	],
@@ -52,6 +53,18 @@ module.exports = {
 		js: "js",
 		theme: "theme",
 	},
-	
-	blankGif: "./blank.gif"
+/*
+	aliases: [
+		['css', 'https://raw.githubusercontent.com/OpenNTF/JavascriptAggregator/master/jaggr-sample/WebContent/js/css.js']
+	],
+*/
+
+	blankGif: "./blank.gif",
+
+	deps: ["js/bootstrap"],
+
+	async: true
 };
+
+// For Webpack, export the config
+typeof module !== 'undefined' && module && (module.exports = dojoConfig);
