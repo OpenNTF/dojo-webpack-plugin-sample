@@ -15,11 +15,14 @@
  */
 define([
 	"dojo/ready",
-	"dojo/parser", 
+	"dojo/parser",
 	"dijit/layout/TabContainer",
 	"js/LazyContentPane",
 	"js/css!dijit/themes/claro/claro.css",
 	"js/css!theme/sample.less"
-], function() {
+], function(ready, parser) {
+	ready(function() {
+		parser.parse();
+	});
 	return {};
 });

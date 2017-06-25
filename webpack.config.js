@@ -21,7 +21,7 @@ var webpack = require("webpack");
 
 module.exports = {
 	context: __dirname,
-	entry: "./entry.js",
+	entry: "js/bootstrap",
 	output: {
 		path: path.join(__dirname, "release"),
 		publicPath: "release/",
@@ -51,10 +51,10 @@ module.exports = {
 			compress: {warnings: false}
 		})
 	],
-	resolveLoader: { 
+	resolveLoader: {
 		root: path.join(
-				__dirname, 
-				__dirname === process.cwd() ?  
+				__dirname,
+				__dirname === process.cwd() ?
 					"node_modules" :	// we're building in the project and node_modules is child folder
 					"../../node_modules"// we're building outside the project and this project is a child of node_modules
 		)

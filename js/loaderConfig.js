@@ -34,17 +34,17 @@ dojoConfig = {
 	packages: [
 		{
 			name: 'dojo',
-			location: dojoRoot ? path.resolve(dojoRoot, "./dojo") : 'http://ajax.googleapis.com/ajax/libs/dojo/1.10.2/dojo',
+			location: dojoRoot ? path.resolve(dojoRoot, "./dojo") : '//ajax.googleapis.com/ajax/libs/dojo/1.10.2/dojo',
 			lib: '.'
 		},
 		{
 			name: 'dijit',
-			location: dojoRoot ? path.resolve(dojoRoot, "./dijit") : 'http://ajax.googleapis.com/ajax/libs/dojo/1.10.2/dijit',
+			location: dojoRoot ? path.resolve(dojoRoot, "./dijit") : '//ajax.googleapis.com/ajax/libs/dojo/1.10.2/dijit',
 			lib: '.'
 		},
 		{
 			name: 'dojox',
-			location: dojoRoot ? path.resolve(dojoRoot, "./dojox") : 'http://ajax.googleapis.com/ajax/libs/dojo/1.10.2/dojox',
+			location: dojoRoot ? path.resolve(dojoRoot, "./dojox") : '//ajax.googleapis.com/ajax/libs/dojo/1.10.2/dojox',
 			lib: '.'
 		}
 	],
@@ -52,6 +52,7 @@ dojoConfig = {
 	paths: {
 		js: "js",
 		theme: "theme",
+		lesspp: "//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min"
 	},
 /*
 	aliases: [
@@ -63,7 +64,16 @@ dojoConfig = {
 
 	deps: ["js/bootstrap"],
 
-	async: true
+	async: true,
+
+	fixupUrl: function(url) {
+		// Load the uncompressed versions of dojo/dijit/dojox javascript files
+		if (/\/(dojo|dijit|dojox)\/.*\.js$/.test(url)) {
+		  url += ".uncompressed.js";
+	  }
+		return url;
+	}
+
 };
 
 // For Webpack, export the config
