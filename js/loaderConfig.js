@@ -52,8 +52,11 @@ dojoConfig = {
 	paths: {
 		js: "js",
 		theme: "theme",
+		// With the webpack build, the css loader plugin is replaced by a webpack loader
+		// via webpack.config.js, so the following are used only by the unpacked app.
+		css: "//chuckdumont.github.io/dojo-css-plugin/1.0.0/css",
+		// lesspp is used by the css loader plugin when loading LESS modules
 		lesspp: "//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min",
-		css: "//chuckdumont.github.io/dojo-css-plugin/1.0.0/css"
 	},
 
 	blankGif: "./blank.gif",
@@ -63,8 +66,8 @@ dojoConfig = {
 	async: true,
 
 	fixupUrl: function(url) {
-		// Load the uncompressed versions of dojo/dijit/dojox javascript files when using dojo loader
-		// When using webpack build, the dojo loader is not used for loading javascript files so this
+		// Load the uncompressed versions of dojo/dijit/dojox javascript files when using the dojo loader.
+		// When using a webpack build, the dojo loader is not used for loading javascript files so this
 		// property has no effect.
 		if (/\/(dojo|dijit|dojox)\/.*\.js$/.test(url)) {
 		  url += ".uncompressed.js";
