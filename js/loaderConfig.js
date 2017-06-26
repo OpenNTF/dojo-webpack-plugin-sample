@@ -15,7 +15,7 @@
  */
 var isNode = typeof process == "object" && process.versions && process.versions.node && process.versions.v8;
 if (isNode) {
-	// Read dojoRoot from command line args
+	// We're being invoked by webpack at build time.  Read dojoRoot from command line args
 	var path = require("path");
 	var dojoRoot;
 	// find --dojoRoot command line argument
@@ -68,7 +68,9 @@ dojoConfig = {
 	fixupUrl: function(url) {
 		// Load the uncompressed versions of dojo/dijit/dojox javascript files when using the dojo loader.
 		// When using a webpack build, the dojo loader is not used for loading javascript files so this
-		// property has no effect.
+		// property has no effect.  This is only needed because we're loading Dojo from a CDN for this
+		// demo.  In a normal development envorinment, Dojo would be installed locally and this wouldn't
+		// be needed.
 		if (/\/(dojo|dijit|dojox)\/.*\.js$/.test(url)) {
 		  url += ".uncompressed.js";
 	  }
