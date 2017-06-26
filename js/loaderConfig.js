@@ -79,5 +79,6 @@ dojoConfig = {
 
 };
 
-// For Webpack, export the config
+// For Webpack, export the config.  This is needed both at build time and on the client at runtime
+// for the packed application.
 typeof module !== 'undefined' && module && (module.exports = dojoConfig);
