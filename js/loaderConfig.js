@@ -15,6 +15,7 @@
  */
 var isNode = typeof process == "object" && process.versions && process.versions.node && process.versions.v8;
 if (isNode) {
+	// Read dojoRoot from command line args
 	var path = require("path");
 	var dojoRoot;
 	// find --dojoRoot command line argument
@@ -28,22 +29,22 @@ if (isNode) {
 	}
 }
 
-module.exports = {
+dojoConfig = {
 	baseUrl: ".",
 	packages: [
 		{
 			name: 'dojo',
-			location: dojoRoot ? path.resolve(dojoRoot, "./dojo") : '../dojo',
+			location: dojoRoot ? path.resolve(dojoRoot, "./dojo") : '//ajax.googleapis.com/ajax/libs/dojo/1.10.2/dojo',
 			lib: '.'
 		},
 		{
 			name: 'dijit',
-			location: dojoRoot ? path.resolve(dojoRoot, "./dijit") : '../dijit',
+			location: dojoRoot ? path.resolve(dojoRoot, "./dijit") : '//ajax.googleapis.com/ajax/libs/dojo/1.10.2/dijit',
 			lib: '.'
 		},
 		{
 			name: 'dojox',
-			location: dojoRoot ? path.resolve(dojoRoot, "./dojox") : '../dojox',
+			location: dojoRoot ? path.resolve(dojoRoot, "./dojox") : '//ajax.googleapis.com/ajax/libs/dojo/1.10.2/dojox',
 			lib: '.'
 		}
 	],
@@ -51,7 +52,27 @@ module.exports = {
 	paths: {
 		js: "js",
 		theme: "theme",
+		lesspp: "//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min",
+		css: "//chuckdumont.github.io/dojo-css-plugin/1.0.0/css"
 	},
-	
-	blankGif: "./blank.gif"
+
+	blankGif: "./blank.gif",
+
+	deps: ["js/bootstrap"],
+
+	async: true,
+
+	fixupUrl: function(url) {
+		// Load the uncompressed versions of dojo/dijit/dojox javascript files when using dojo loader
+		// When using webpack build, the dojo loader is not used for loading javascript files so this
+		// property has no effect.
+		if (/\/(dojo|dijit|dojox)\/.*\.js$/.test(url)) {
+		  url += ".uncompressed.js";
+	  }
+		return url;
+	}
+
 };
+
+// For Webpack, export the config
+typeof module !== 'undefined' && module && (module.exports = dojoConfig);
