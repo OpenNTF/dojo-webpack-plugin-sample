@@ -15,7 +15,6 @@
  */
 var DojoWebpackPlugin = require("dojo-webpack-plugin");	// load locally
 
-var loaderConfig = require("./js/loaderConfig");
 var path = require("path");
 var webpack = require("webpack");
 
@@ -35,15 +34,15 @@ module.exports = {
 	},
 	plugins: [
 		new DojoWebpackPlugin({
-			loaderConfig: loaderConfig,
+			loaderConfig: require("./js/loaderConfig"),
 			locales: ["en"]
 		}),
 		// For plugins registered after the DojoAMDPlugin, data.request has been normalized and
 		// resolved to an absMid and loader-config maps and aliases have been applied
 		new webpack.NormalModuleReplacementPlugin(/^dojox\/gfx\/renderer!/, "dojox/gfx/canvas"),
 		new webpack.NormalModuleReplacementPlugin(
-			/^js\/css!/, function(data) {
-				data.request = data.request.replace(/^js\/css!/, "!style!css!less!")
+			/^css!/, function(data) {
+				data.request = data.request.replace(/^css!/, "!style!css!less!")
 			}
 		),
 		new webpack.optimize.UglifyJsPlugin({
@@ -52,12 +51,7 @@ module.exports = {
 		})
 	],
 	resolveLoader: {
-		root: path.join(
-				__dirname,
-				__dirname === process.cwd() ?
-					"node_modules" :	// we're building in the project and node_modules is child folder
-					"../../node_modules"// we're building outside the project and this project is a child of node_modules
-		)
+		root: path.join(__dirname, "node_modules")
 	},
 	devtool: "#source-map",
 	node: {

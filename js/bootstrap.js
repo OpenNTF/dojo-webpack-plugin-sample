@@ -18,8 +18,8 @@ define([
 	"dojo/parser",
 	"dijit/layout/TabContainer",
 	"js/LazyContentPane",
-	"js/css!dijit/themes/claro/claro.css",
-	"js/css!theme/sample.less"
+	"css!dijit/themes/claro/claro.css",
+	"css!theme/sample.less"
 ], function(ready, parser) {
 	ready(function() {
 		parser.parse();
