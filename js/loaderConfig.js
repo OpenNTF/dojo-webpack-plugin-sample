@@ -63,7 +63,9 @@ dojoConfig = {
 	async: true,
 
 	fixupUrl: function(url) {
-		// Load the uncompressed versions of dojo/dijit/dojox javascript files
+		// Load the uncompressed versions of dojo/dijit/dojox javascript files when using dojo loader
+		// When using webpack build, the dojo loader is not used for loading javascript files so this
+		// property has no effect.
 		if (/\/(dojo|dijit|dojox)\/.*\.js$/.test(url)) {
 		  url += ".uncompressed.js";
 	  }
