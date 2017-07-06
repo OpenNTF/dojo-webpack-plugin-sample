@@ -17,45 +17,53 @@ var DojoWebpackPlugin = require("dojo-webpack-plugin");	// load locally
 
 var path = require("path");
 var webpack = require("webpack");
+var path = require("path");
 
-module.exports = {
-	context: __dirname,
-	entry: "js/bootstrap",
-	output: {
-		path: path.join(__dirname, "release"),
-		publicPath: "release/",
-		pathinfo: true,
-		filename: "bundle.js"
-	},
-	module: {
-		loaders: [
-			{ test: /\.(png)|(gif)$/, loader: "url?limit=100000" }
-		]
-	},
-	plugins: [
-		new DojoWebpackPlugin({
-			loaderConfig: require("./js/loaderConfig"),
-			locales: ["en"]
-		}),
-		// For plugins registered after the DojoAMDPlugin, data.request has been normalized and
-		// resolved to an absMid and loader-config maps and aliases have been applied
-		new webpack.NormalModuleReplacementPlugin(/^dojox\/gfx\/renderer!/, "dojox/gfx/canvas"),
-		new webpack.NormalModuleReplacementPlugin(
-			/^css!/, function(data) {
-				data.request = data.request.replace(/^css!/, "!style!css!less!")
-			}
-		),
-		new webpack.optimize.UglifyJsPlugin({
-			output: {comments: false},
-			compress: {warnings: false}
-		})
-	],
-	resolveLoader: {
-		root: path.join(__dirname, "node_modules")
-	},
-	devtool: "#source-map",
-	node: {
-		process: false,
-		global: false
+module.exports = function(env) {
+	if (!env.dojoRoot) {
+		throw new Error("Dojo root not specified.  Use the --env.dojoRoot command line argument to specify the location of the Dojo folders.");
+	}
+	return {
+		context: __dirname,
+		entry: "js/bootstrap",
+		output: {
+			path: path.join(__dirname, "release"),
+			publicPath: "release/",
+			pathinfo: true,
+			filename: "bundle.js"
+		},
+		module: {
+			loaders: [
+				{ test: /\.(png)|(gif)$/, loader: "url-loader?limit=100000" }
+			]
+		},
+		plugins: [
+			new DojoWebpackPlugin({
+				loaderConfig: require("./js/loaderConfig")(env.dojoRoot),
+				locales: ["en"]
+			}),
+			// For plugins registered after the DojoAMDPlugin, data.request has been normalized and
+			// resolved to an absMid and loader-config maps and aliases have been applied
+			new webpack.NormalModuleReplacementPlugin(/^dojox\/gfx\/renderer!/, "dojox/gfx/canvas"),
+			new webpack.NormalModuleReplacementPlugin(
+				/^css!/, function(data) {
+					data.request = data.request.replace(/^css!/, "!style-loader!css-loader!less-loader!")
+				}
+			),
+			new webpack.optimize.UglifyJsPlugin({
+				output: {comments: false},
+				compress: {warnings: false}
+			})
+		],
+		resolveLoader: {
+			modules: [
+				path.join(__dirname, "node_modules")
+			]
+		},
+		devtool: "#source-map",
+		node: {
+			process: false,
+			global: false
+		}
 	}
 }
