@@ -17,7 +17,6 @@ var DojoWebpackPlugin = require("dojo-webpack-plugin");	// load locally
 
 var path = require("path");
 var webpack = require("webpack");
-var path = require("path");
 
 module.exports = function(env) {
 	if (!env.dojoRoot) {
