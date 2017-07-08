@@ -13,11 +13,11 @@ To build the app, you need to provide the location of the root directory where y
 ```
 Note: on Windows, be sure to use upper-case for the drive letter and exact case for directory names in order to avoid the infamous [equal name when case is ignored](https://github.com/webpack/webpack/issues/2362) warnings.
 
-To build the sample, run the following commands in the project root folder
+To build the sample, run the following commands in the project root folder, specifying the location of the dojo root folder on the file system.
 
 ```
 npm install
-node_modules/.bin/webpack --config webpack.config.js --env.dojoRoot <dojoRoot>
+npm run buildSample -- <dojoRoot>
 ```
 
 The built files will be located in `./release`.  You can launch the app by loading `./test.html` in a browser.  Note that loading the app from the file system works only for the packed application.  The non-packed version of the app (?nopack=1) loads Dojo from a CDN, so cross-origin restrictions in browsers require that you load the non-packed app from an http server.  Alternatively, you could modify test.html and js/loaderConfig.js to use the locally installed Dojo for the unpacked application as well.
