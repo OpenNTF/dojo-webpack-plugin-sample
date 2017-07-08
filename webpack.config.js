@@ -19,8 +19,9 @@ var path = require("path");
 var webpack = require("webpack");
 
 module.exports = function(env) {
-	if (!env.dojoRoot) {
-		throw new Error("Dojo root not specified.  Use the --env.dojoRoot command line argument to specify the location of the Dojo folders.");
+	if (!env.dojoRoot || typeof env.dojoRoot !== 'string') {
+		throw new Error("Dojo root not specified.  Use the -- <dojoRoot> command line arguments to specify the location of the Dojo folders.\n" +
+		                "For example: \"npm run buildSample -- ../dojo-release-1.10.0-src\"");
 	}
 	return {
 		context: __dirname,
