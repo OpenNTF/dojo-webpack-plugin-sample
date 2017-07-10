@@ -25,6 +25,11 @@
   "dojo/promise/first",
   "dojo/_base/declare"
 ], function(Deferred, all, first, declare) {
+  function wrap(dojoPromise) {
+    return new Promise(function(resolve, reject) {
+      dojoPromise.then(resolve).otherwise(reject);
+    });
+  }
   var result = declare([], {
     constructor: function(executor) {
       this.dfd = new Deferred();
@@ -35,23 +40,23 @@
       }
     },
     catch: function(onRejected) {
-      return this.dfd.then(function(){}, onRejected);
+      return wrap(this.dfd.then(function(){}, onRejected));
     },
     then: function(onFullfilled, onRejected) {
-      return this.dfd.then(onFullfilled, onRejected);
+      return wrap(this.dfd.then(onFullfilled, onRejected));
     }
   });
   result.all = function(iterable) {
-    return all(iterable);
+    return wrap(all(iterable));
   };
   result.race = function(iterable) {
-    return first(iterable);
+    return wrap(first(iterable));
   };
   result.reject = function(reason) {
-    return (new Deferred()).reject(reason);
+    return wrap((new Deferred()).reject(reason));
   };
   result.resolve = function(value) {
-    return (new Deferred()).resolve(value);
+    return wrap((new Deferred()).resolve(value));
   }
   if (!window.Promise) {
     window.Promise = result;
