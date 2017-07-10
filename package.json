@@ -16,6 +16,6 @@
     "url": "git+https://github.com/OpenNTF/dojo-webpack-plugin-sample.git"
   },
   "scripts": {
-    "buildSample": "node node_modules/webpack/bin/webpack.js --config webpack.config.js --env.dojoRoot "
+    "build": "node node_modules/webpack/bin/webpack.js --config webpack.config.js --env.dojoRoot "
   }
 }

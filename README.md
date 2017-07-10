@@ -17,7 +17,7 @@ To build the sample, run the following commands in the project root folder, spec
 
 ```
 npm install
-npm run buildSample -- <dojoRoot>
+npm run build -- <dojoRoot>
 ```
 
 The built files will be located in `./release`.  You can launch the app by loading `./test.html` in a browser.  Note that loading the app from the file system works only for the packed application.  The non-packed version of the app (?nopack=1) loads Dojo from a CDN, so cross-origin restrictions in browsers require that you load the non-packed app from an http server.  Alternatively, you could modify test.html and js/loaderConfig.js to use the locally installed Dojo for the unpacked application as well.
