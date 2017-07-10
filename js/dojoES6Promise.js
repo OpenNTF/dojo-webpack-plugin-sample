@@ -26,24 +26,33 @@
   "dojo/_base/declare"
 ], function(Deferred, all, first, declare) {
   function wrap(dojoPromise) {
-    return new Promise(function(resolve, reject) {
+    var executor = function(resolve, reject) {
       dojoPromise.then(resolve).otherwise(reject);
-    });
+    };
+    executor._dojoPromise = dojoPromise;
+    return new Promise(executor);
   }
   var result = declare([], {
     constructor: function(executor) {
-      this.dfd = new Deferred();
-      try {
-        executor(this.dfd.resolve, this.dfd.reject);
-      } catch (err) {
-        this.dfd.reject(err);
+      if (!executor._dojoPromise) {
+        // Create a new dojo/Deferred
+        var dfd = new Deferred();
+        this.promise = dfd.promise;
+        try {
+          executor(dfd.resolve, dfd.reject);
+        } catch (err) {
+          dfd.reject(err);
+        }
+      } else {
+        // We're just wrapping an existing dojo promise
+        this.promise = executor._dojoPromise;
       }
     },
     catch: function(onRejected) {
-      return wrap(this.dfd.then(function(){}, onRejected));
+      return wrap(this.promise.then(function(){}, onRejected));
     },
     then: function(onFullfilled, onRejected) {
-      return wrap(this.dfd.then(onFullfilled, onRejected));
+      return wrap(this.promise.then(onFullfilled, onRejected));
     }
   });
   result.all = function(iterable) {
