@@ -25,16 +25,20 @@
   "dojo/promise/first",
   "dojo/_base/declare"
 ], function(Deferred, all, first, declare) {
+  "use strict";
+
+  var Promise, freezeObject = Object.freeze || function(){};
+
   function wrap(dojoPromise) {
-    var executor = function(resolve, reject) {
-      dojoPromise.then(resolve).otherwise(reject);
-    };
-    executor._dojoPromise = dojoPromise;
-    return new Promise(executor);
+    var result = new Promise();
+    result.promise = dojoPromise;
+    freezeObject(result);
+    return result;
   }
-  var result = declare([], {
+
+  Promise = declare([], {
     constructor: function(executor) {
-      if (!executor._dojoPromise) {
+      if (executor) {
         // Create a new dojo/Deferred
         var dfd = new Deferred();
         this.promise = dfd.promise;
@@ -43,32 +47,30 @@
         } catch (err) {
           dfd.reject(err);
         }
-      } else {
-        // We're just wrapping an existing dojo promise
-        this.promise = executor._dojoPromise;
+        freezeObject(this);
       }
     },
     catch: function(onRejected) {
-      return wrap(this.promise.then(function(){}, onRejected));
+      return wrap(this.promise.otherwise(onRejected));
     },
     then: function(onFullfilled, onRejected) {
       return wrap(this.promise.then(onFullfilled, onRejected));
-    }
+    },
   });
-  result.all = function(iterable) {
+  Promise.all = function(iterable) {
     return wrap(all(iterable));
   };
-  result.race = function(iterable) {
+  Promise.race = function(iterable) {
     return wrap(first(iterable));
   };
-  result.reject = function(reason) {
+  Promise.reject = function(reason) {
     return wrap((new Deferred()).reject(reason));
   };
-  result.resolve = function(value) {
+  Promise.resolve = function(value) {
     return wrap((new Deferred()).resolve(value));
   }
   if (!window.Promise) {
-    window.Promise = result;
+    window.Promise = Promise;
   };
-  return result;
+  return Promise;
 });
