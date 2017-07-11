@@ -68,7 +68,7 @@
   };
   Promise.resolve = function(value) {
     return wrap((new Deferred()).resolve(value));
-  }
+  };
   if (!window.Promise) {
     window.Promise = Promise;
   };
