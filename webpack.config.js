@@ -52,7 +52,8 @@ module.exports = function(env) {
 			),
 			new webpack.optimize.UglifyJsPlugin({
 				output: {comments: false},
-				compress: {warnings: false}
+				compress: {warnings: false},
+				sourceMap: true
 			})
 		],
 		resolveLoader: {
