@@ -18,7 +18,7 @@ define([
 	"dojo/parser",
 	"dijit/layout/TabContainer",
 	"js/LazyContentPane",
-	"js/dojoES6Promise",
+	"dojo/has!webpack?dojo-webpack-plugin/amd/dojoES6Promise",
 	"css!dijit/themes/claro/claro.css",
 	"css!theme/sample.less"
 ], function(ready, parser) {
