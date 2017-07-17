@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 var DojoWebpackPlugin = require("dojo-webpack-plugin");	// load locally
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 var path = require("path");
 var webpack = require("webpack");
@@ -34,7 +35,9 @@ module.exports = function(env) {
 		},
 		module: {
 			loaders: [
-				{ test: /\.(png)|(gif)$/, loader: "url-loader?limit=100000" }
+				{ test: /\.(png)|(gif)$/, loader: "url-loader?limit=100000" },
+				{ test: /\.css$/, loader: ExtractTextPlugin.extract({ fallback: "style-loader", use: "css-loader" }) },
+				{ test: /\.jsx?$/, loader: "babel-loader" }
 			]
 		},
 		plugins: [
@@ -54,6 +57,9 @@ module.exports = function(env) {
 				output: {comments: false},
 				compress: {warnings: false},
 				sourceMap: true
+			}),
+			new ExtractTextPlugin({
+				filename: "styles.css"
 			})
 		],
 		resolveLoader: {

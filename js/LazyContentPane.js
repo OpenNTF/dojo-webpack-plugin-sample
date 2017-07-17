@@ -18,8 +18,9 @@ define([
 	"dojo/_base/declare",		// declare
 	"dijit/layout/ContentPane",	// parent
 	"dojo/dom-construct",
-	"dijit/a11yclick"			// template requirement
-], function(lang, declare, ContentPane, dconst){
+	"dijit/a11yclick",			// template requirement
+	"./es6module"
+], function(lang, declare, ContentPane, dconst, es6module){
 
 // module:
 //		js/LazyContentPane
@@ -29,6 +30,8 @@ define([
 
 	return declare("dijit.layout.LazyContentPane", [ContentPane], {
 		onShow: function() {
+			console.log(es6module.hello());
+			
 			if (this.get('content') == '') {
 				this.set('content', this.onDownloadStart());
 				
