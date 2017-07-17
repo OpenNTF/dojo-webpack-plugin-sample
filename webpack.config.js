@@ -35,9 +35,9 @@ module.exports = function(env) {
 		},
 		module: {
 			loaders: [
-        { test: /\.(png)|(gif)$/, loader: "url-loader?limit=100000" },
-        { test: /\.css$/, loader: ExtractTextPlugin.extract({ fallback: "style-loader", use: "css-loader" }) },
-        { test: /\.jsx?$/, loader: "babel-loader" }
+				{ test: /\.(png)|(gif)$/, loader: "url-loader?limit=100000" },
+				{ test: /\.css$/, loader: ExtractTextPlugin.extract({ fallback: "style-loader", use: "css-loader" }) },
+				{ test: /\.jsx?$/, loader: "babel-loader" }
 			]
 		},
 		plugins: [
@@ -57,11 +57,10 @@ module.exports = function(env) {
 				output: {comments: false},
 				compress: {warnings: false},
 				sourceMap: true
-      }),
-      new ExtractTextPlugin({
-        filename: "[name].css",
-        allChunks: true
-      })
+			}),
+			new ExtractTextPlugin({
+				filename: "styles.css"
+			})
 		],
 		resolveLoader: {
 			modules: [
