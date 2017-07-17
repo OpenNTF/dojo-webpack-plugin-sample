@@ -18,8 +18,9 @@ define([
 	"dojo/_base/declare",		// declare
 	"dijit/layout/ContentPane",	// parent
 	"dojo/dom-construct",
-	"dijit/a11yclick"			// template requirement
-], function(lang, declare, ContentPane, dconst){
+	"dijit/a11yclick",			// template requirement
+  "./es6module"
+], function(lang, declare, ContentPane, dconst, es6module){
 
 // module:
 //		js/LazyContentPane
@@ -29,9 +30,11 @@ define([
 
 	return declare("dijit.layout.LazyContentPane", [ContentPane], {
 		onShow: function() {
+      console.log(es6module.hello());
+
 			if (this.get('content') == '') {
 				this.set('content', this.onDownloadStart());
-				
+
 				var title = this.get('title');
 				if (title == 'Calendar') {
 					require(['dijit/Calendar'], lang.hitch(this, function(calendar) {
@@ -52,9 +55,9 @@ define([
 				} else if (title == 'Chart') {
 					// Chained requires for gfx are internal to the gfx module.
 					require([
-					    'dojox/charting/Chart2D', 
-					    'dojox/charting/themes/Wetland', 
-					    'dojox/charting/axis2d/Default', 
+					    'dojox/charting/Chart2D',
+					    'dojox/charting/themes/Wetland',
+					    'dojox/charting/axis2d/Default',
 					    'dojox/charting/plot2d/Default'
 					], lang.hitch(this, function(chart, wetland) {
 						dconst.empty(this.domNode);

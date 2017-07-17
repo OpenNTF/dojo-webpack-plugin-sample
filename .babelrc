@@ -1,0 +1,7 @@
+{
+  presets: [
+    "es2015-nostrict",
+    "stage-0"
+  ],
+  passPerPreset: true
+}
