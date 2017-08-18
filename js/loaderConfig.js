@@ -23,17 +23,17 @@ function getConfig(dojoRoot) {
 		packages: [
 			{
 				name: 'dojo',
-				location: dojoRoot ? path.join(dojoRoot, "./dojo").replace("\\","/") : '//ajax.googleapis.com/ajax/libs/dojo/1.10.2/dojo',
+				location: dojoRoot ? path.join(dojoRoot, "./dojo").replace("\\","/") : '//ajax.googleapis.com/ajax/libs/dojo/1.12.2/dojo',
 				lib: '.'
 			},
 			{
 				name: 'dijit',
-				location: dojoRoot ? path.join(dojoRoot, "./dijit").replace("\\","/") : '//ajax.googleapis.com/ajax/libs/dojo/1.10.2/dijit',
+				location: dojoRoot ? path.join(dojoRoot, "./dijit").replace("\\","/") : '//ajax.googleapis.com/ajax/libs/dojo/1.12.2/dijit',
 				lib: '.'
 			},
 			{
 				name: 'dojox',
-				location: dojoRoot ? path.join(dojoRoot, "./dojox").replace("\\","/") : '//ajax.googleapis.com/ajax/libs/dojo/1.10.2/dojox',
+				location: dojoRoot ? path.join(dojoRoot, "./dojox").replace("\\","/") : '//ajax.googleapis.com/ajax/libs/dojo/1.12.2/dojox',
 				lib: '.'
 			}
 		],
