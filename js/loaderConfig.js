@@ -13,27 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-function getConfig(dojoRoot) {
-	// dojoRoot is defined if we're running in node (i.e. building)
-	if (dojoRoot) {
-		var path = require('path');
-	}
+function getConfig(env) {
+	// env is set by the buildEnvronment and/or environment plugin options (see webpack.config.js),
+	// or by the code at the end of this file if using without webpack 
 	dojoConfig = {
-		baseUrl: ".",
+		baseUrl: '.',
 		packages: [
 			{
 				name: 'dojo',
-				location: dojoRoot ? path.join(dojoRoot, "./dojo").replace("\\","/") : '//ajax.googleapis.com/ajax/libs/dojo/1.12.2/dojo',
+				location: env.dojoRoot + '/dojo',
 				lib: '.'
 			},
 			{
 				name: 'dijit',
-				location: dojoRoot ? path.join(dojoRoot, "./dijit").replace("\\","/") : '//ajax.googleapis.com/ajax/libs/dojo/1.12.2/dijit',
+				location: env.dojoRoot + '/dijit',
 				lib: '.'
 			},
 			{
 				name: 'dojox',
-				location: dojoRoot ? path.join(dojoRoot, "./dojox").replace("\\","/") : '//ajax.googleapis.com/ajax/libs/dojo/1.12.2/dojox',
+				location: env.dojoRoot + '/dojox',
 				lib: '.'
 			}
 		],
@@ -73,5 +71,6 @@ function getConfig(dojoRoot) {
 if (typeof module !== 'undefined' && module) {
 	module.exports = getConfig;
 } else {
-	getConfig();
+	// No webpack.  This script was loaded by page via script tag, so load Dojo from CDN
+	getConfig({env: {dojoRoot: '//ajax.googleapis.com/ajax/libs/dojo/1.12.2'}});
 }
