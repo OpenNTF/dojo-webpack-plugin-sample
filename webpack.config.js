@@ -34,7 +34,9 @@ module.exports = {
 	},
 	plugins: [
 		new DojoWebpackPlugin({
-			loaderConfig: require("./js/loaderConfig")("node_modules"),
+			loaderConfig: require.resolve("./js/loaderConfig"),
+			environment: {dojoRoot: "."},	// used at run time for non-packed resources
+			buildEnvironment: {dojoRoot: path.join(__dirname, "node_modules")}, // used at build time
 			locales: ["en"]
 		}),
 		// For plugins registered after the DojoAMDPlugin, data.request has been normalized and
