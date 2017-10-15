@@ -46,8 +46,6 @@ function getConfig(env) {
 			lesspp: "//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min",
 		},
 
-		blankGif: "./blank.gif",
-
 		deps: ["js/bootstrap"],
 
 		async: true,
