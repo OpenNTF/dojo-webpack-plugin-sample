@@ -35,19 +35,19 @@ module.exports = {
 	},
 	plugins: [
 		new DojoWebpackPlugin({
-			loaderConfig: require.resolve("./js/loaderConfig"),
+			loaderConfig: require("./js/loaderConfig"),
 			environment: {dojoRoot: "release"},	// used at run time for non-packed resources (e.g. blank.gif)
 			buildEnvironment: {dojoRoot: "node_modules"}, // used at build time
 			locales: ["en"]
 		}),
-		
+
 		// Copy non-packed resources needed by the app to the release directory
 		new CopyWebpackPlugin([{
 			context: "node_modules",
 			from: "dojo/resources/blank.gif",
 			to: "dojo/resources"
 		}]),
-		
+
 		// For plugins registered after the DojoAMDPlugin, data.request has been normalized and
 		// resolved to an absMid and loader-config maps and aliases have been applied
 		new webpack.NormalModuleReplacementPlugin(/^dojox\/gfx\/renderer!/, "dojox/gfx/canvas"),
@@ -56,7 +56,7 @@ module.exports = {
 				data.request = data.request.replace(/^css!/, "!style-loader!css-loader!less-loader!")
 			}
 		),
-		
+
 		new webpack.optimize.UglifyJsPlugin({
 			output: {comments: false},
 			compress: {warnings: false},
