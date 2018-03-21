@@ -1,6 +1,6 @@
 {
   "name": "dojo-webpack-plugin-sample",
-  "version": "2.3.3",
+  "version": "2.7.0",
   "devDependencies": {
     "copy-webpack-plugin": "4.5.1",
     "css-loader": "0.28.10",
