@@ -29,16 +29,25 @@ module.exports = {
 		filename: "bundle.js"
 	},
 	module: {
-		loaders: [
-			{ test: /\.(png)|(gif)$/, loader: "url-loader?limit=100000" }
-		]
+		rules: [{
+	    test: /\.(png)|(gif)$/,
+	    use: [
+	      {
+	        loader: 'url-loader',
+	        options: {
+	          limit: 100000
+	        }
+	      }
+	    ]
+	  }]		
 	},
 	plugins: [
 		new DojoWebpackPlugin({
 			loaderConfig: require("./js/loaderConfig"),
 			environment: {dojoRoot: "release"},	// used at run time for non-packed resources (e.g. blank.gif)
 			buildEnvironment: {dojoRoot: "node_modules"}, // used at build time
-			locales: ["en"]
+			locales: ["en"],
+			requireFnPropName: "dojo"
 		}),
 
 		// Copy non-packed resources needed by the app to the release directory
@@ -55,17 +64,12 @@ module.exports = {
 			/^css!/, function(data) {
 				data.request = data.request.replace(/^css!/, "!style-loader!css-loader!less-loader!")
 			}
-		),
-
-		new webpack.optimize.UglifyJsPlugin({
-			output: {comments: false},
-			compress: {warnings: false},
-			sourceMap: true
-		})
+		)
 	],
 	resolveLoader: {
 		modules: ["node_modules"]
 	},
+	mode: "production",
 	devtool: "#source-map",
 	node: {
 		process: false,
