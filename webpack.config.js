@@ -15,6 +15,7 @@
  */
 var DojoWebpackPlugin = require("dojo-webpack-plugin");
 var CopyWebpackPlugin = require("copy-webpack-plugin");
+var UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 var path = require("path");
 var webpack = require("webpack");
@@ -46,8 +47,7 @@ module.exports = {
 			loaderConfig: require("./js/loaderConfig"),
 			environment: {dojoRoot: "release"},	// used at run time for non-packed resources (e.g. blank.gif)
 			buildEnvironment: {dojoRoot: "node_modules"}, // used at build time
-			locales: ["en"],
-			requireFnPropName: "dojo"
+			locales: ["en"]
 		}),
 
 		// Copy non-packed resources needed by the app to the release directory
@@ -70,9 +70,20 @@ module.exports = {
 		modules: ["node_modules"]
 	},
 	mode: "production",
-	devtool: "#source-map",
-	node: {
-		process: false,
-		global: false
-	}
+	optimization: {
+    minimizer: [
+      // we specify a custom UglifyJsPlugin here to get source maps in production
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        uglifyOptions: {
+          compress: true,
+          mangle: true,
+					output: {comments:false}
+        },
+        sourceMap: true
+      })
+    ]
+  },
+	devtool: "#source-map"
 };
