@@ -1,13 +1,13 @@
 {
   "name": "dojo-webpack-plugin-sample",
-  "version": "2.7.0",
+  "version": "2.7.1",
   "devDependencies": {
     "copy-webpack-plugin": "4.5.1",
     "css-loader": "0.28.10",
     "dijit": "1.13.0",
     "dojo": "1.13.0",
     "dojo-util": "1.13.0",
-    "dojo-webpack-plugin": "2.7.0",
+    "dojo-webpack-plugin": "2.7.1",
     "dojox": "1.12.2",
     "less": "2.7.1",
     "less-loader": "4.1.0",
