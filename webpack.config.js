@@ -25,7 +25,7 @@ module.exports = {
 	entry: "js/bootstrap",
 	output: {
 		path: path.join(__dirname, "release"),
-		publicPath: "release/",
+		publicPath: "/release/",
 		pathinfo: true,
 		filename: "bundle.js"
 	},
@@ -40,14 +40,15 @@ module.exports = {
 	        }
 	      }
 	    ]
-	  }]		
+	  }]
 	},
 	plugins: [
 		new DojoWebpackPlugin({
 			loaderConfig: require("./js/loaderConfig"),
 			environment: {dojoRoot: "release"},	// used at run time for non-packed resources (e.g. blank.gif)
 			buildEnvironment: {dojoRoot: "node_modules"}, // used at build time
-			locales: ["en"]
+			locales: ["en"],
+			noConsole: true
 		}),
 
 		// Copy non-packed resources needed by the app to the release directory
@@ -69,7 +70,7 @@ module.exports = {
 	resolveLoader: {
 		modules: ["node_modules"]
 	},
-	mode: "production",
+	mode: process.env.WEBPACK_SERVE ? 'development' : 'production',
 	optimization: {
     minimizer: [
       // we specify a custom UglifyJsPlugin here to get source maps in production
