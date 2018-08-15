@@ -25,7 +25,7 @@ module.exports = {
 	entry: "js/bootstrap",
 	output: {
 		path: path.join(__dirname, "release"),
-		publicPath: "/release/",
+		publicPath: "release/",
 		pathinfo: true,
 		filename: "bundle.js"
 	},
