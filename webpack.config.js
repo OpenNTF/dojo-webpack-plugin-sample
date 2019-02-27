@@ -75,6 +75,7 @@ module.exports = env => {
 		mode: devmode ? 'development' : 'production',
 		optimization: {
 			namedModules: false,
+			splitChunks: false,
 			minimizer: devmode ? [] : [
 	      // we specify a custom UglifyJsPlugin here to get source maps in production
 	      new UglifyJsPlugin({
