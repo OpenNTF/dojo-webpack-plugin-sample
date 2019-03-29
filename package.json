@@ -1,13 +1,13 @@
 {
   "name": "dojo-webpack-plugin-sample",
-  "version": "2.8.3",
+  "version": "2.8.5",
   "devDependencies": {
     "copy-webpack-plugin": "4.5.1",
     "css-loader": "0.28.10",
     "dijit": "1.14.0",
     "dojo": "1.14.0",
     "dojo-util": "1.14.0",
-    "dojo-webpack-plugin": "2.8.3",
+    "dojo-webpack-plugin": "2.8.5",
     "dojox": "1.14.0",
     "less": "2.7.1",
     "less-loader": "4.1.0",
@@ -16,7 +16,7 @@
     "url-loader": "1.0.1",
     "webpack": "4.29.5",
     "webpack-cli": "3.1.0",
-    "webpack-dev-server": "^3.1.14"
+    "webpack-dev-server": "^3.2.1"
   },
   "license": "Apache-2.0",
   "repository": {
