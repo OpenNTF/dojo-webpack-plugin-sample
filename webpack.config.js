@@ -13,15 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-var DojoWebpackPlugin = require("dojo-webpack-plugin");
-var CopyWebpackPlugin = require("copy-webpack-plugin");
-var UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const DojoWebpackPlugin = require("dojo-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+const TerserPlugin = require('terser-webpack-plugin');
 
 var path = require("path");
 var webpack = require("webpack");
 
 module.exports = env => {
   const devmode = !!(env||{}).dev;
+	console.log("devmode = " + devmode);
 	return {
 		context: __dirname,
 		entry: "js/bootstrap",
@@ -29,20 +30,20 @@ module.exports = env => {
 			path: path.join(__dirname, "release"),
 			publicPath: "release/",
 			pathinfo: true,
-			filename: "bundle.js"
+			filename: "bundle.js",
 		},
 		module: {
 			rules: [{
-		    test: /\.(png)|(gif)$/,
-		    use: [
-		      {
-		        loader: 'url-loader',
-		        options: {
-		          limit: 100000
-		        }
-		      }
-		    ]
-		  }]
+				test: /\.(png)|(gif)$/,
+				use: [
+					{
+						loader: 'url-loader',
+						options: {
+							limit: 100000
+						}
+					}
+				]
+			}]
 		},
 		plugins: [
 			new DojoWebpackPlugin({
@@ -54,11 +55,15 @@ module.exports = env => {
 			}),
 
 			// Copy non-packed resources needed by the app to the release directory
-			new CopyWebpackPlugin([{
-				context: "node_modules",
-				from: "dojo/resources/blank.gif",
-				to: "dojo/resources"
-			}]),
+			new CopyWebpackPlugin({
+				patterns: [
+					{
+						context: "node_modules",
+						from: "dojo/resources/blank.gif",
+						to: "dojo/resources"
+					}
+				]
+			}),
 
 			// For plugins registered after the dojo-webpack-plugin, data.request has been normalized and
 			// resolved to an absMid and loader-config maps and aliases have been applied
@@ -74,27 +79,16 @@ module.exports = env => {
 		},
 		mode: devmode ? 'development' : 'production',
 		optimization: {
-			namedModules: false,
+			moduleIds: 'natural',
 			splitChunks: false,
-			minimizer: devmode ? [] : [
-	      // we specify a custom UglifyJsPlugin here to get source maps in production
-	      new UglifyJsPlugin({
-	        cache: true,
-	        parallel: true,
-	        uglifyOptions: {
-	          compress: true,
-	          mangle: true,
-						output: {comments:false}
-	        },
-	        sourceMap: true
-	      })
-	    ],
-	  },
-    performance: { hints: false },
-		devtool: "#source-map",
+			minimize: !devmode,
+			minimizer: devmode ? [] : [new TerserPlugin()]
+		},
+		performance: { hints: false },
+		devtool: "hidden-source-map",
 		devServer: {
 			open: true,
 			openPage: "test.html"
-		}
+		},
 	};
 };
