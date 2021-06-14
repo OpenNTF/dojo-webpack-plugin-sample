@@ -50,7 +50,9 @@ function getConfig(env) {
 
 		async: true,
 
-		has: {'dojo-config-api': 0},	// Don't need the config API code in the embedded Dojo loader
+		has: {'dojo-config-api': 0},	// We don't need the config API code in the embedded Dojo loader,
+		                              // however, don't do this if you use window.dojoConfig or
+		                              // require.rawConfig.
 
 		fixupUrl: function(url) {
 			// Load the uncompressed versions of dojo/dijit/dojox javascript files when using the dojo loader.
