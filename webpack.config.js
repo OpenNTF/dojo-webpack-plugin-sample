@@ -82,7 +82,14 @@ module.exports = env => {
 			moduleIds: 'natural',
 			splitChunks: false,
 			minimize: !devmode,
-			minimizer: devmode ? [] : [new TerserPlugin()]
+			minimizer: devmode ? [] : [new TerserPlugin({
+				terserOptions: {
+					format: {
+						comments: false,
+					},
+				},
+				extractComments: false,
+			})]
 		},
 		performance: { hints: false },
 		devtool: "hidden-source-map",
