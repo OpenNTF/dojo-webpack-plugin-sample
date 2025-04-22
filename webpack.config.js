@@ -94,8 +94,10 @@ module.exports = env => {
 		performance: { hints: false },
 		devtool: "hidden-source-map",
 		devServer: {
-			open: true,
-			openPage: "test.html"
+			static: {
+				directory: __dirname,
+			},
+			open: ['/test.html'],
 		},
 	};
 };
